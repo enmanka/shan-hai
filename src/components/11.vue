@@ -33,6 +33,13 @@ export default {
       const lineData = [];
       const textData = [];
       const start = ["鼓", "祝融", "共工", "颛顼", "应龙"];
+      const nameS = [
+        "创世神话",
+        "始祖神话",
+        "洪水神话",
+        "战争神话",
+        "发明创造神话",
+      ];
       const end = [
         ["烛九阴", "葆江", "黄帝", "钦䲹"],
         ["炎帝", "听沃", "炎居", "节并", "戏器"],
@@ -95,6 +102,7 @@ export default {
           value: [x, bottomY],
           index: circleCount + i,
           name: start[i],
+          label: nameS[i],
         };
         circleData.push(circle);
 
@@ -223,9 +231,16 @@ export default {
           formatter: function (params) {
             if (
               params.seriesType === "scatter" &&
-              params.data.index < circleCount + circleCount1
+              params.data.index < circleCount
             ) {
               return params.data.name; // 只显示上半圆小圆的名称
+            }
+            if (
+              params.seriesType === "scatter" &&
+              params.data.index >= circleCount &&
+              params.data.index < circleCount + circleCount1
+            ) {
+              return params.data.label; // 只显示下边缘小圆的名称
             }
           },
         },
